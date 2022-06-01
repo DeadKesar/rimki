@@ -3,14 +3,13 @@
 #include <string>
 #include <iostream>
 #include <fcntl.h>
-#include <io.h>
 #include <math.h>
 
 class RimNumber
 {
 
 private:
-	std::string rim = "N";
+	char rim[256] = "N";
 	int arabNumb = 0;
 	int RimToArab(std::string rim);
 	static std::string FractionToRim(double num);
@@ -58,5 +57,6 @@ public:
 	bool operator!=(int num);
 	friend std::ostream& operator<<(std::ostream& os, RimNumber& rim);
 	friend std::istream& operator>>(std::istream& is, RimNumber& rim);
+	int length();
 };
 

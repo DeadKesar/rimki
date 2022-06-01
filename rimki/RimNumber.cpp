@@ -221,7 +221,11 @@ void RimNumber::SetByArab(int numb)
         Paste(answer, "I", numb / 1);
         numb--;
     }
-    rim = answer;
+    for (int i = 0; i < answer.length(); i++)
+    {
+        rim[i] = answer[i];
+    }
+    rim[answer.length()] = '\0';
 }
 void RimNumber::CallSetFromConsole(std::string const mes)
 {
@@ -233,7 +237,7 @@ void RimNumber::CallSetFromConsole(std::string const mes)
         isSuccess = false;
         if ((int)*this == -1)
         {
-            std::wcout << std::endl << L"Римское число не коректно. Попробуйте снова: ";
+            std::cout << std::endl << "Римское число не коректно. Попробуйте снова: ";
             isSuccess = true;
         }
     }
@@ -273,7 +277,7 @@ RimNumber RimNumber::operator/(RimNumber aRim)
     RimNumber temp;
     if (aRim.arabNumb == 0)
     {
-        std::wcout << L"Делить на 0 нельзя." << std::endl;
+        std::cout << "Делить на 0 нельзя." << std::endl;
         temp.SetByArab(0);
         return temp;
     }
@@ -306,7 +310,7 @@ RimNumber RimNumber::operator/(int num)
     RimNumber temp;
     if (num == 0)
     {
-        std::wcout << L"Делить на 0 нельзя." << std::endl;
+        std::cout << "Делить на 0 нельзя." << std::endl;
         temp.SetByArab(0);
         return temp;
     }
@@ -325,7 +329,13 @@ RimNumber& RimNumber::operator=(RimNumber& rim)
         return *this;
     }
     this->arabNumb = rim.arabNumb;
-    this->rim = rim.rim;
+    int i = 0;
+    while (rim.rim[i] != '\0')
+    {
+        this->rim[i] = rim.rim[i];
+        i++;
+    }
+    this->rim[i] = rim.rim[i];
     return *this;
 }
 
@@ -348,7 +358,7 @@ RimNumber& RimNumber::operator/=(RimNumber& aRim)
 {
     if (aRim.arabNumb == 0)
     {
-        std::wcout << L"Делить на 0 нельзя." << std::endl;
+        std::cout << "Делить на 0 нельзя." << std::endl;
         this->SetByArab(0);
         return *this;
     }
@@ -374,7 +384,7 @@ RimNumber& RimNumber::operator/=(int num)
 {
     if (num == 0)
     {
-        std::wcout << L"Делить на 0 нельзя." << std::endl;
+        std::cout << "Делить на 0 нельзя." << std::endl;
         this->SetByArab(0);
         return *this;
     }
@@ -516,4 +526,13 @@ RimNumber& RimNumber::TryToGetNumber(std::string s)
         }
     }
     return *this;
+}
+int RimNumber::length()
+{
+    int count = 0;
+    while (this->rim[count] != '\0')
+    {
+        count++;
+    }
+    return count;
 }
